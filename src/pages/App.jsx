@@ -91,16 +91,18 @@ const handleSearchChange = (e) => {
     }
 
     return filteredMeals.map((meal) => {
-      const highlightedTitle = searchTerm
-        ? meal.title.replaceAll(
-            searchTerm,
-            `<span style='color:red;'>${searchTerm}</span>`
-          )
-        : meal.title;
+     const highlightText = (text, term) => {
+  if (!term) return text;
 
-      const shortDescription = meal.description
-        ? `${meal.description.slice(0, 60)}...`
-        : 'No instructions available.';
+  const regex = new RegExp(`(${term})`, 'gi');
+  return text.replace(regex, `<span style="color:red;">$1</span>`);
+};
+
+const highlightedTitle = highlightText(meal.title, searchTerm);
+
+const shortDescription = meal.description
+  ? `${meal.description.slice(0, 60)}...`
+  : 'No description available.';
 
       return (
         <div
