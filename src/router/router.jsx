@@ -4,6 +4,7 @@ import App from "../pages/App";
 import Cart from "../pages/cart";
 import Details from "../pages/details";
 import NotFoundPage from "../pages/not-found-page";
+import About from "../pages/about";
 
 export const rootRouter = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const rootRouter = createBrowserRouter([
         path: "details/:id",
         element: <Details />,
       },
+      {
+        path: "about",
+        element: <About />,
+      },  
       {
         path: "*",               // Catch-all route for undefined paths
         element: <NotFoundPage />,

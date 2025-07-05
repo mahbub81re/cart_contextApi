@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { CartContext } from "../features/cartContext";
 import Toast from "../components/toast";
 import NotFoundPage from "./not-found-page";
@@ -25,7 +25,6 @@ function Details() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     } catch (error) {
-      
       console.error("Failed to fetch product details:", error);
     }
   };
@@ -81,7 +80,7 @@ function Details() {
                 Price: $ {product.price.toFixed(2)}
               </span>
               <button
-                onClick={handleAddToCart}
+                onClick={()=>handleAddToCart(product)}
                 className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-6 py-2 rounded-lg shadow transition"
               >
                 Add to Cart 🛒
@@ -92,6 +91,9 @@ function Details() {
       ) : (
         <p className="text-center text-lg text-gray-500">Loading product details...</p>
       )}
+
+        <Link to="/" className="mt-4 inline-block text-blue-500 hover:underline m-4"> {'<- Back to Home'}</Link>
+
     </div>
   );
 }

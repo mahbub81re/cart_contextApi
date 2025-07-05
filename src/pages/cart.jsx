@@ -13,7 +13,7 @@ const Cart = () => {
 
   return (
     <Fragment>
-      <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md">
+      <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md mt-6  ">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Your Cart
         </h2>
@@ -22,7 +22,7 @@ const Cart = () => {
           <p className="text-center text-gray-500 text-lg">Your cart is empty.</p>
         ) : (
           <Fragment>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto ">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>

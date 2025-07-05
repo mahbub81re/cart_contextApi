@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { CartContext } from '../features/cartContext';
 import { Link } from 'react-router';
+import Toast from '../components/toast';
 
 const App = () => {
   const [meals, setMeals] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+    const [showToast, setShowToast] = useState(false);
+  const [sortOrder, setSortOrder] = useState("");
 
   const { addToCart } = useContext(CartContext);
 
@@ -28,14 +31,66 @@ const App = () => {
     fetchMeals(searchTerm.trim());
   };
 
+
+  const handleAddToCart = (product) => {
+    if (product) {
+      const productToCart = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.image,
+        quantity: 1,
+      };
+      addToCart(productToCart);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    }
+  };
   
+
+
+
+
+
+const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSortChange = (e) => {
+    setSortOrder(e.target.value);
+  };
+
+  const filteredMeals = meals
+    .filter((item) =>
+      item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOrder === "low-high") return a.price - b.price;
+      if (sortOrder === "high-low") return b.price - a.price;
+      return 0;
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const renderMealCards = () => {
     if (!meals.length) {
       return <p className="text-red-500">No meals found.</p>;
     }
 
-    return meals.map((meal) => {
+    return filteredMeals.map((meal) => {
       const highlightedTitle = searchTerm
         ? meal.title.replaceAll(
             searchTerm,
@@ -73,13 +128,7 @@ const App = () => {
             </Link>
 
             <button
-              onClick={() => addToCart({
-                id: meal.id,
-                title: meal.title,
-                price: meal.price ,
-                image: meal.image,
-                quantity: 1
-              })}
+              onClick={() => handleAddToCart(meal)}
               className="bg-green-500  text-sm  text-white font-semibold py-2 px-3 rounded hover:bg-green-600 transition"
             >
               ADD TO CART
@@ -96,10 +145,7 @@ const App = () => {
         className="relative bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('./images/page-title.jpg')" }}
       >
-        <div className="p-5 bg-white flex justify-between w-full px-8">
-          <img src='/images/logo (3) (1).png' alt="Logo" className="mb-4 w-24" />
-             <Link to="/cart" className="text-black font-semibold px-4 py-2 bg-blue-400  text-white rounded-md">Go To Cart</Link>
-        </div>
+        
 
         <div className="relative z-10 text-center text-white py-20 px-4">
           <h1 className="text-4xl md:text-5xl font-bold">Search Your Favorite Recipe</h1>
@@ -124,6 +170,15 @@ const App = () => {
               type="submit"
               className="bg-yellow-400 px-5 flex items-center justify-center hover:bg-yellow-500 transition"
             >
+             <select
+            value={sortOrder}
+            onChange={handleSortChange}
+            className="px-4 py-2 rounded shadow focus:outline-none w-full md:w-48 mx-4"
+          >
+            <option value="">Sort by Price</option>
+            <option value="low-high">Low ➡ High</option>
+            <option value="high-low">High ➡ Low</option>
+          </select>
               <svg
                 className="w-6 h-6 text-white"
                 fill="none"
@@ -139,6 +194,11 @@ const App = () => {
               </svg>
             </button>
           </form>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+  
+
+         
+        </div>
         </div>
 
         <h1 className="text-3xl font-bold text-center mb-6">Latest Recipes</h1>
@@ -149,6 +209,12 @@ const App = () => {
           {renderMealCards()}
         </div>
       </div>
+
+       <Toast
+          message={ "Product"}
+            show={showToast && showToast}
+            className="fixed top-4 right-4 z-50"
+        />
     </div>
   );
 };
