@@ -107,8 +107,11 @@ const shortDescription = meal.description
       return (
         <div
           key={meal.id}
-          className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col justify-between"
+          className="bg-white rounded-xl shadow-md overflow-hidden flex flex-col justify-between relative hover:shadow-lg transition-transform transform hover:scale-105"
         >
+          <div className='absolute top-2 right-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded'>
+            ${meal.price}
+          </div>
           <img
             src={meal.image}
             alt={meal.title}
