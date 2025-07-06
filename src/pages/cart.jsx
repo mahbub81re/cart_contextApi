@@ -2,10 +2,10 @@ import React, { Fragment, useContext } from "react";
 import CartItem from "../components/cart-item";
 import { CartContext } from "../features/cartContext";
 import { Link } from "react-router";
+import { ToastContext } from "../features/toastContext";
 
 const Cart = () => {
   const { cart, clearCart } = useContext(CartContext);
-
   const totalPrice = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
