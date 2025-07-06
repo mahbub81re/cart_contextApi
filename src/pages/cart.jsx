@@ -1,8 +1,7 @@
-import React, { Fragment, useContext } from "react";
+import  { Fragment, useContext } from "react";
 import CartItem from "../components/cart-item";
 import { CartContext } from "../features/cartContext";
 import { Link } from "react-router";
-import { ToastContext } from "../features/toastContext";
 
 const Cart = () => {
   const { cart, clearCart } = useContext(CartContext);

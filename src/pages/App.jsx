@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import ProductCard from '../components/product-card';
 import { filteredProducts } from '../utils/utils';
+import Loading from '../components/Loading';
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -9,6 +10,7 @@ const App = () => {
   const [suggestions, setSuggestions] = useState([]);
   const suggestionRef = useRef(null);
   const filteredAndSortedProducts = filteredProducts(products, searchTerm, sortOrder);    
+  const  [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchProducts();
@@ -16,12 +18,15 @@ const App = () => {
 
   const fetchProducts = async () => {
     try {
+      setLoading(true);
       const response = await fetch('https://fakestoreapi.com/products');
       const data = await response.json();
       setProducts(data || []);
+      setLoading(false);
     } catch (error) {
       console.error('Failed to fetch products:', error);
     }
+
   };
 
   const handleInputChange = (e) => {
@@ -112,8 +117,10 @@ const App = () => {
         </form>
 
         <h2 className="text-3xl font-bold text-center mb-8">Latest Products</h2>
-
-        {filteredAndSortedProducts.length === 0 ? (
+        {loading ? (
+           <Loading/>
+        ) : 
+           filteredAndSortedProducts.length === 0 ? (
           <p className="text-red-500 text-center">No products found.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

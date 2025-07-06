@@ -14,7 +14,6 @@ createRoot(rootElement).render(
     <CartProvider>
       <RouterProvider router={rootRouter} />
       </CartProvider>
-      </ToastProvider>
-      
+   </ToastProvider>
   </StrictMode>
 );
