@@ -13,7 +13,7 @@ const Nav = () => {
                 <Link to="/" className="text-black font-semibold px-4 max-md:px-2 py-2 hover:bg-blue-400 hover:text-white rounded-md">Home</Link>
                 <Link to="/about" className="text-black font-semibold px-4 max-md:px-2 py-2 hover:bg-blue-400 hover:text-white rounded-md">About</Link>
                 <div className="relative     pr-3 ">
-                  {cart.length>0 &&<span className="text-black absolute text-white  font-semibold -top-5 max-md:top-0 max-md:-right-2 text-xs -right-5 bg-red-400 rounded-full px-3 max-md:px-[10px] max-md:py-1 py-1 cursor-pointer">
+                  {cart.length>0 &&<span className="text-black absolute text-white  font-semibold -top-5 max-md:top-0 max-md:-right-2 text-xs -right-2 bg-red-400 rounded-full px-3 max-md:px-[10px] max-md:py-1 py-[6px] cursor-pointer">
                      {cart.length}
                   </span>
                    }

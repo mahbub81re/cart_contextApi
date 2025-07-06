@@ -34,7 +34,7 @@ function CartItem({ item }) {
           className="h-16 w-16 object-cover rounded"
         />
       </td>
-      <td className="px-4 py-3 text-gray-700 font-medium">{item.title}</td>
+<td className="px-4 py-3 text-gray-700 font-medium max-sm:max-h-16 max-sm:overflow-hidden max-sm:text-ellipsis max-sm:whitespace-nowrap max-w-[200px] max-md:max-w-[120px]">{item.title}</td>
       <td className="px-4 py-3 text-right text-gray-600">${item.price.toFixed(2)}</td>
       <td className="px-4 py-3 text-center">
         <div className="inline-flex items-center border rounded-md overflow-hidden">
